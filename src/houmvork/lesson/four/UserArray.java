@@ -12,6 +12,7 @@ public class UserArray {
     }
 
 
+    //    Создаем массивы для хранения данных о пользователях
     public static void inputArray() {
         ArrayList<String> nameUser = new ArrayList<>();
         ArrayList<String> sexUser = new ArrayList<>();
@@ -57,6 +58,7 @@ public class UserArray {
 
     }
 
+    //    Медот запроса сортировки полученных массивов у пользователя
     public static void sortData(ArrayList<String> name, ArrayList<String> sex, ArrayList<Integer> age) {
         System.out.println("""
                 Выберите вариант сортировки:
@@ -84,6 +86,7 @@ public class UserArray {
 
     }
 
+    //    Универсальный способ сортировки
     public static void sortDataArray(ArrayList One, ArrayList two, ArrayList three) {
         LinkedList tempArrayOne = new LinkedList<>(One);
         LinkedList tempArrayTwo = new LinkedList<>();
@@ -109,10 +112,9 @@ public class UserArray {
         if (tempArrayThree.size() < One.size()) {
             tempArrayThree.add(three.get(One.size() - 1));
         }
+
         tempArrayTwo.forEach(str -> System.out.print(str + " / "));
         System.out.println();
         tempArrayThree.forEach(str -> System.out.print(str + " / "));
-
-
     }
 }
