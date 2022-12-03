@@ -7,112 +7,84 @@ import java.util.*;
 
 public class Lesson4 {
     public static void main(String[] args) {
-        inputArray();
+        //Scanner iScanner = new Scanner(System.in);
+        //System.out.println("Введите имя ");
+        //String name = iScanner.nextLine();
+        //<String> persons = new ArrayList<>();
+        //persons.add(name);
+        //System.out.println(persons);
+        //iScanner.close();
 
 
-    }
+        //System.out.println("Введите кол-во записей");
+        ArrayList<String> list_fname = new ArrayList<>();
+        ArrayList<String> list_lname = new ArrayList<>();
+        ArrayList<String> list_tname = new ArrayList<>();
+        ArrayList<Integer> list_age = new ArrayList<>();
+        ArrayList<String> list_sex = new ArrayList<>();
+        List<Integer> linkedlist = new LinkedList<>();
 
-    public static void inputArray() {
-        ArrayList<String> nameUser = new ArrayList<>();
-        ArrayList<String> sexUser = new ArrayList<>();
-        ArrayList<Integer> ageUser = new ArrayList<>();
-
-        //        Заглушка для программы
-//        nameUser.add("Егор Андреевич Сизов");
-//        nameUser.add("Вика Алексеевна Лобанова");
-//        nameUser.add("Лера Егатериновна Петрова");
-//        nameUser.add("Максим Сергеевич Кура");
-//        sexUser.add("муж");
-//        sexUser.add("жен");
-//        sexUser.add("жен");
-//        sexUser.add("муж");
-//        ageUser.add(36);
-//        ageUser.add(20);
-//        ageUser.add(35);
-//        ageUser.add(36);
-
-        int count = 0;
-        System.out.print("Введите количество пользователей: ");
-        Scanner scannerCount = new Scanner(System.in);
-        int finalCount = Integer.parseInt(scannerCount.nextLine());
-        while (count < finalCount) {
-            System.out.println("Введите имя пользователя");
+        boolean flag = true;
+        while (flag) {
             Scanner scanner = new Scanner(System.in);
-            nameUser.add(scanner.nextLine());
-            System.out.println("Введите пол пользователя");
-            sexUser.add(scanner.nextLine());
-            System.out.println("Введите возраст пользователя");
-            ageUser.add(scanner.nextInt());
-            count++;
+            Scanner scanner_age = new Scanner(System.in);
+            Scanner sex = new Scanner(System.in);
 
-        }
+            System.out.println("ENter your fio: ");
+            String fio = scanner.nextLine();
+            System.out.println("Eneter ur age: ");
+            Integer age = scanner_age.nextInt();
+            list_age.add(age);
+            String[] fio1 = fio.split(" ");
+            if (fio1.length == 3) {
+                list_fname.add(fio1[1]);
+                list_lname.add(fio1[0]);
+                list_tname.add(fio1[2]);
+            } else if (fio1.length == 2) {
+                list_lname.add(fio1[0]);
+                list_fname.add(fio1[1]);
+                list_tname.add("");
+            } else {
+                list_lname.add(fio1[0]);
+                list_fname.add("");
+                list_tname.add("");
+            }
 
-        nameUser.forEach((String s) -> System.out.print(s + " / "));
-        System.out.println();
-        sexUser.forEach((String s) -> System.out.print(s + " / "));
-        System.out.println();
-        ageUser.forEach((Integer i) -> System.out.print(i + " / "));
-        System.out.println();
-        sortData(nameUser, sexUser, ageUser);
-
-    }
-
-    public static void sortData(ArrayList<String> name, ArrayList<String> sex, ArrayList<Integer> age) {
-        System.out.println("""
-                Выберите вариант сортировки:
-                1. По имени\s
-                2. По полу\s
-                3. По возрасту""");
-
-        Scanner scannerChoice = new Scanner(System.in);
-        int choiceUser = scannerChoice.nextInt();
-
-        switch (choiceUser) {
-            case 1:
-                sortDataArray(name, sex, age);
-                break;
-            case 2:
-                sortDataArray(sex, name, age);
-                break;
-            case 3:
-                sortDataArray(age, name, sex);
-                break;
-            default:
-                System.out.println("не корректный ввод");
-        }
-
-
-    }
-
-    public static void sortDataArray(ArrayList One, ArrayList two, ArrayList three) {
-        LinkedList tempArrayOne = new LinkedList<>(One);
-        LinkedList tempArrayTwo = new LinkedList<>();
-        LinkedList tempArrayThree = new LinkedList<>();
-
-        Collections.sort(tempArrayOne);
-        tempArrayOne.forEach(str -> System.out.print(str + " / "));
-        System.out.println();
-
-        for (int i = 0; i < One.size() - 1; i++) {
-            if (One.get(i) != One.get(i + 1)) {
-                for (int j = 0; j < One.size(); j++) {
-                    if (tempArrayOne.get(i) == One.get(j)) {
-                        tempArrayTwo.add(two.get(j));
-                        tempArrayThree.add(three.get(j));
-                    }
-                }
+            System.out.println("Enter your gender: ");
+            String gender = sex.nextLine();
+            if (gender.contains("M")) {
+                list_sex.add("true");
+            }
+            else  {
+                list_sex.add("false");
+            }
+            linkedlist.add(list_age.size() - 1);
+            System.out.println("Do u want enter next one? Y/N");
+            Scanner scanner1 = new Scanner(System.in);
+            String yn = scanner1.nextLine();
+            if(yn.toUpperCase().equals("N")) {
+                flag = false;
             }
         }
-        if (tempArrayTwo.size() < One.size()) {
-            tempArrayTwo.add(two.get(One.size() - 1));
-        }
-        if (tempArrayThree.size() < One.size()) {
-            tempArrayThree.add(three.get(One.size() - 1));
-        }
-        tempArrayTwo.forEach(str -> System.out.print(str + " / "));
-        System.out.println();
-        tempArrayThree.forEach(str -> System.out.print(str + " / "));
 
+        int cnt = list_age.size()-1;
+        while (cnt > -1) {
+            int max_age = list_age.get(linkedlist.get(cnt));
+            int index = cnt;
+            for (int i = 0; i < cnt; i++){
+                if (max_age < list_age.get(linkedlist.get(i))){
+                    max_age = list_age.get(linkedlist.get(i));
+                    index = i;
+                }
+            }
+            int tmp = linkedlist.get(cnt);
+            linkedlist.set(cnt, linkedlist.get(index));
+            linkedlist.set(index, tmp);
+
+            cnt--;
+        }
+        linkedlist.forEach(i ->
+                System.out.println(list_fname.get(i)+list_lname.get(i)+list_tname.get(i)+list_age.get(i)+list_sex.get(i)));
 
     }
 }
